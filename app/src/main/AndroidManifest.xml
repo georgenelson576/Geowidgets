@@ -6,50 +6,55 @@
     <!-- Permissions                  -->
     <!-- ============================= -->
 
-    <!-- Read network / Wi-Fi state -->
+    <!-- Network / Wi-Fi -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <!-- Toggle Wi-Fi (system / priv-app) -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.NETWORK_SETTINGS" />
+
+    <!-- Mobile data (SYSTEM / SIGNATURE ONLY) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
 
     <!-- ============================= -->
     <!-- Application                  -->
     <!-- ============================= -->
 
     <application
-        android:label="Geo WiFi Widget"
+        android:label="LazyWidget"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:allowBackup="false"
         android:persistent="true">
 
         <!-- ================================= -->
         <!-- MainActivity (bootstrap only)    -->
-        <!-- Starts NetworkCallback service   -->
         <!-- ================================= -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
             android:excludeFromRecents="true"
             android:finishOnTaskLaunch="true"
             android:noHistory="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <!-- ================================= -->
-        <!-- Persistent Network Observer      -->
-        <!-- Holds ConnectivityManager callback -->
+        <!-- Persistent Wi-Fi observer        -->
         <!-- ================================= -->
         <service
             android:name=".WifiNetworkService"
             android:exported="false" />
 
         <!-- ================================= -->
-        <!-- AppWidget Provider (DUMB VIEW)   -->
-        <!-- NO system broadcasts here        -->
+        <!-- Wi-Fi Widget (view only)         -->
         <!-- ================================= -->
         <receiver
             android:name=".WifiWidgetProvider"
@@ -64,10 +69,32 @@
         </receiver>
 
         <!-- ================================= -->
-        <!-- Widget click → toggle Wi-Fi      -->
+        <!-- Wi-Fi toggle receiver            -->
         <!-- ================================= -->
         <receiver
             android:name=".WifiToggleReceiver"
+            android:exported="false" />
+
+        <!-- ================================= -->
+        <!-- Mobile Data Widget (view only)   -->
+        <!-- ================================= -->
+        <receiver
+            android:name=".MobileDataWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/mobile_data_widget" />
+        </receiver>
+
+        <!-- ================================= -->
+        <!-- Mobile Data toggle receiver      -->
+        <!-- ================================= -->
+        <receiver
+            android:name=".MobileDataToggleReceiver"
             android:exported="false" />
 
     </application>

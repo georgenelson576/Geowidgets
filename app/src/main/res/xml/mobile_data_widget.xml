@@ -1,9 +1,9 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="48dp"
     android:minHeight="48dp"
-    android:resizeMode="none"
     android:updatePeriodMillis="0"
-    android:initialLayout="@layout/widget_wifi_off"
+    android:initialLayout="@layout/widget_mobile_data"
     android:widgetCategory="home_screen"
-    android:description="@string/widget_wifi_name"
-    android:previewImage="@drawable/wifi_prv"/>
+    android:description="@string/widget_mobile_data_name"
+    android:previewImage="@drawable/mobiledata_prv"
+    />

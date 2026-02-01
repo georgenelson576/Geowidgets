@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">GeoWidget</string>
+    <string name="app_name">LazyWidget</string>
+    <string name="widget_mobile_data_name">Mobile Data</string>
+    <string name="widget_wifi_name">WiFi</string>
 </resources>
